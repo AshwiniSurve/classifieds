@@ -25,6 +25,7 @@ export class HeaderComponent implements OnInit{
   private session : Session;
   private activeSession:boolean = false;
   public isCollapsed:boolean = true;
+  public  isCreateCardVisible: boolean = false;
 
 
   constructor(public _authenticationWindowService: AuthenticationWindowService,
@@ -49,6 +50,12 @@ export class HeaderComponent implements OnInit{
     public expanded(event:any):void {
         console.log(event);
     }
+
+  createCard() {
+    console.log('Card show');
+    this.isCreateCardVisible = true;
+
+  }
 
   doLogout(){
     this._authenticationWindowService.doLogOut();

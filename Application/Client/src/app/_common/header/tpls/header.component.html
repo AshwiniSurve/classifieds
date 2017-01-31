@@ -14,10 +14,12 @@
       [collapse]="isCollapsed">
       <ul class="nav navbar-nav navbar-right">
         <li>
-          <button class="green-button">
-            <span class="icon-flag"></span>
-            <span>create</span>
+
+          <button class="green-button" (click)="createCard()">
+            <span class="icon-flag"></span>card
           </button>
+          <create-card [isCreateCardVisible]='isCreateCardVisible'>
+          </create-card>
         </li>
         <li>
           <a href="#">

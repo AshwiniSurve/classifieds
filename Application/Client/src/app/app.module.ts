@@ -19,6 +19,8 @@ import {CService} from "./_common/services/http.service";
 import { LoginComponent } from './_common/login/component/login.component';
 import { FilterComponent } from './filter/components/filter.component';
 import { SearchComponent } from './_common/search/components/search.component';
+import { CreateCardComponent } from './create-card/components/create-card.component';
+
 
 /*ng2-bootstrap*/
 import { ModalModule } from 'ng2-bootstrap/modal';
@@ -48,7 +50,8 @@ type StoreType = {
     BannerComponent,
     SearchComponent,
     FilterComponent,
-    LoginComponent
+    LoginComponent,
+    CreateCardComponent
   ],
   imports: [ // import Angular's modules
     BrowserModule,
