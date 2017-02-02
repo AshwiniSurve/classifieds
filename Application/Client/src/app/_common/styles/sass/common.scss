@@ -45,3 +45,11 @@ body{
   background-position:-363px 0;
   display:block;
 }
+
+.fixed{
+  position: fixed !important;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  width: 100%;
+}

@@ -37,18 +37,18 @@ export class HeaderComponent implements OnInit{
   ngOnInit(){
     this.session = new Session( this._cookieService.getObject( 'SESSION_PORTAL' ) );
     this.activeSession = (this.session && this.session.isValid());
-    console.log(this.activeSession);
+    //console.log(this.activeSession);
     if(!this.activeSession){
       this.doLogout();
     }
   }
 
     public collapsed(event:any):void {
-        console.log(event);
+        //console.log(event);
     }
 
     public expanded(event:any):void {
-        console.log(event);
+        //console.log(event);
     }
 
   createCard() {

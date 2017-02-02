@@ -1,5 +1,6 @@
 @import "../../_common/styles/sass/style";
 
+
 .navbar.searchFilterContainerWrapper{
 	position: relative;
 	min-height: 84px;
@@ -15,6 +16,9 @@
 		border-top: 2px solid $filter-shadow-color;
 		box-shadow: 0 0 15px 0 $filter-shadow-color;
 	}
+  &.fixed{
+    top: 76px;
+  }
 }
 @media (min-width: 320px) and (max-width: 460px){
   .searchFilterContainerWrapper{

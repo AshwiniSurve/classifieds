@@ -6,29 +6,29 @@ let styles = require('../styles/banner.component.scss').toString();
 let tpls = require('../tpls/banner.component.html').toString();
 
 @Component({
-  selector: 'banner',
-  styles : [ styles ],
-  providers:[SettingsService],
-  template : tpls
+    selector: 'banner',
+    styles : [ styles ],
+    providers:[SettingsService],
+    template : tpls
 })
 
 export class BannerComponent {
-  private settings : any ;
-  private listingsData : any ;
-  localState = { value: '' };
-  constructor(public appState: AppState,private _settingsService: SettingsService) {}
+    private settings : any ;
+    private listingsData : any ;
+    localState = { value: '' };
+    constructor(public appState: AppState,private _settingsService: SettingsService) {}
 
   @Input()
-  categories;
+    categories;
 
-  ngOnInit() {
-    this.listingsData=this._settingsService.getBannerListingsData();
-    console.log('dsf = ',this.listingsData);
-  }
+    ngOnInit() {
+        this.listingsData=this._settingsService.getBannerListingsData();
+        //console.log('dsf = ',this.listingsData);
+    }
 
-  submitState(value: string) {
-    console.log('submitState', value);
-    this.appState.set('value', value);
-    this.localState.value = '';
-  }
+    submitState(value: string) {
+        //console.log('submitState', value);
+        this.appState.set('value', value);
+        this.localState.value = '';
+    }
 }

@@ -21,8 +21,7 @@ export class CService {
   private getHeaders(): Headers {
 
     let headers = new Headers();
-      this.sessionObj = this._cookieService.getObject('SESSION_PORTAL');
-      console.log('session obj = ',this.sessionObj);
+    this.sessionObj = this._cookieService.getObject('SESSION_PORTAL');
     headers.append( 'Content-Type', 'application/jsonp; charset=UTF-8' );
     headers.append('AccessToken',this.sessionObj.token);
     headers.append('UserEmail',this.sessionObj.useremail);

@@ -76,7 +76,7 @@ export class FilterComponent {
     this.categoryUrl = this.filterCategoryUrl+category;
     this._cservice.observableGetHttp(this.categoryUrl,null,false)
       .subscribe((res:Response)=> {
-          console.log('res = ',res);
+          //console.log('res = ',res);
           this.filterCategory.emit(res);
         },   error => {
           console.log("error in response");

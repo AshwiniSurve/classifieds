@@ -1,6 +1,7 @@
-<header></header>
+
+<header [ngClass]="{'fixed-navbar':navIsFixed}"></header>
 <banner [categories]='bannerData'></banner>
-<nav class="navbar searchFilterContainerWrapper" #cheader id="cheader1">
+<nav class="navbar searchFilterContainerWrapper" id="cheader1" [ngClass]="{'fixed':navIsFixed}">
    <div class="searchFilterContainer">
         <search (searchCategory)="showOutput($event)"
                 (getSelectedFilter)="getSelectedFilter($event)"></search>

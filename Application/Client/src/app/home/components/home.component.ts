@@ -1,4 +1,4 @@
-import { Component,ViewChildren,OnInit } from '@angular/core';
+import { Component,ViewChildren,OnInit, HostListener, Inject, ElementRef } from '@angular/core';
 import { AppState } from '../../app.service';
 import {SettingsService} from '../../_common/services/setting.service';
 import { Observable }     from 'rxjs/Observable';
@@ -17,7 +17,7 @@ let tpls = require('../tpls/home.component.html').toString();
   template : tpls
 })
 
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   private settings : any ;
   private baseUrl : any ;
   private  data : any;
@@ -27,24 +27,34 @@ export class HomeComponent {
   public initialCardData: any;
   public bannerData: any;
   public filterCat:any;
-
+  public navIsFixed: boolean = false;
+  private topNavbar:any;
+  private affixEl:any;
+  private affixElOffsetTop: number;
 
   @ViewChildren("cheader") CHeader;
 
   constructor(
       public appState: AppState,
       private _settingsService: SettingsService,
-      private _cservice:CService) {
+      private _cservice:CService,
+      private el:ElementRef) {
   }
   ngOnInit() {
     this.baseUrl=this._settingsService.getBaseUrl();
     this.getInitialCards();
     this.getBannerListing();
+
+    this.getAffixElOffsetTop();
+  }
+  getAffixElOffsetTop(){
+    this.affixEl = this.el.nativeElement.querySelector('#cheader1');
+    this.affixElOffsetTop = this.affixEl.offsetTop;
+    //console.log('off = ',this.affixElOffsetTop);
   }
   getInitialCards (){
     this._cservice.observableGetHttp(this.cardUrl,null,false)
       .subscribe((res:Response)=> {
-            console.log('cards response = ',res);
           this.initialCardData = res;
         },
         error => {
@@ -73,5 +83,15 @@ export class HomeComponent {
     }
     getSelectedFilter(selectedOpt){
       this.selectedFilter = selectedOpt;
+    }
+
+    @HostListener("window:scroll", ['$event'])
+    onWindowScroll(e) {
+        let number = e.target.body.scrollTop+125;
+        if (number > this.affixElOffsetTop) {
+            this.navIsFixed = true;
+        } else if (this.navIsFixed && number < this.affixElOffsetTop) {
+            this.navIsFixed = false;
+        }
     }
 }
