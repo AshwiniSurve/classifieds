@@ -130,7 +130,7 @@ namespace Classifieds.ListingsAPI.Tests
         /// test for incorrect email return null;
         /// </summary>
         [TestMethod]
-        public void Repo_GetListingsByEmailTest_NullId()
+        public void Repo_GetListingsByEmailTest_Null()
         {
             //Act
             var result = _listingRepo.GetListingsByEmail(null);
@@ -144,7 +144,7 @@ namespace Classifieds.ListingsAPI.Tests
         /// </summary>
         [TestMethod]
         [ExpectedException(typeof(NullReferenceException))]
-        public void Repo_GetListingByEmailTest_InvalidId_ThrowException()
+        public void Repo_GetListingByEmailTest_InvalidEmail_ThrowException()
         {
             var result = _listingRepo.GetListingsByEmail("qazxsw");
             Assert.AreEqual(0, result.Count);
