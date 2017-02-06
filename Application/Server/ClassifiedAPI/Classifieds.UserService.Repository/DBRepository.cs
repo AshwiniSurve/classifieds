@@ -43,6 +43,18 @@ namespace Classifieds.UserService.Repository
         {
             return _db.GetCollection<ClassifiedsUser>(name);
         }
+
+        /// <summary>
+        /// This methods returns the mongo collection instance representing a collection on database
+        /// </summary>
+        /// <typeparam name="Subscription">document type</typeparam>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public MongoCollection<Subscription> GetSubscription<Subscription>(string name)
+        {
+            return _db.GetCollection<Subscription>(name);
+        }
+
         #endregion
     }
 }

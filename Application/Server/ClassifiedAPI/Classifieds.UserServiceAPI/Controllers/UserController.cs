@@ -3,6 +3,8 @@ using Classifieds.Common.Repositories;
 using Classifieds.UserService.BusinessEntities;
 using Classifieds.UserService.BusinessServices;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -24,6 +26,7 @@ namespace Classifieds.UserServiceAPI.Controllers
         private readonly IUserService _userService;
         private readonly ILogger _logger;
         private readonly ICommonRepository _commonRepository;
+        private string _userSubcriptionEmail = string.Empty;
         #endregion
 
         #region Constructor
@@ -39,6 +42,8 @@ namespace Classifieds.UserServiceAPI.Controllers
         #endregion
 
         #region Public Methods
+
+        #region RegisterUser 
         /// <summary>
         /// Registers the user if not present in Db
         /// </summary>
@@ -52,9 +57,9 @@ namespace Classifieds.UserServiceAPI.Controllers
             {
                 email = GetUserEmail(user);
                 HttpResponseMessage response = null;
-                if(user == null || user.UserEmail == null || user.UserName == null)
+                if (user == null || user.UserEmail == null || user.UserName == null)
                     throw new Exception(HttpStatusCode.PreconditionFailed.ToString() + "Invalid request");
-                else if(!(user.UserEmail.ToLowerInvariant().EndsWith("globant.com")))
+                else if (!(user.UserEmail.ToLowerInvariant().EndsWith("globant.com")))
                     throw new Exception(HttpStatusCode.PreconditionFailed.ToString() + "Invalid domain");
 
                 var result = _userService.RegisterUser(user);
@@ -77,8 +82,136 @@ namespace Classifieds.UserServiceAPI.Controllers
                 _logger.Log(ex, email);
                 throw new Exception(HttpStatusCode.Conflict.ToString() + " Internal server error");
             }
-         }
+        }
+
+        #endregion RegisterUser 
+
+        #region AddSubscription
+
+        /// <summary>
+        /// Insert new Subscription item into the database
+        /// </summary>
+        /// <returns>newly added Subscription object</returns>
+        public HttpResponseMessage AddSubscription(Subscription subscriptionObj)
+        {
+            HttpResponseMessage result;
+            try
+            {
+                string authResult = _commonRepository.IsAuthenticated(Request);
+                _userSubcriptionEmail = GetSubscriptionEmail();
+                if (!(authResult.Equals("200")))
+                {
+                    throw new Exception(authResult);
+                }
+                var subscription = _userService.AddSubscription(subscriptionObj);
+                result = Request.CreateResponse<Subscription>(HttpStatusCode.Created, subscription);
+            }
+            catch (Exception ex)
+            {
+                _logger.Log(ex, _userSubcriptionEmail);
+                throw;
+            }
+
+            return result;
+        }
+
+        #endregion AddSubscription
+
+        #region DeleteSubscription
+        /// <summary>
+        /// Delete Subscription item for given Id
+        /// </summary>
+        /// <param name="id">Id</param>
+        /// <returns>deleted id</returns>
+        public HttpResponseMessage DeleteSubscription(string id)
+        {
+            HttpResponseMessage result;
+            try
+            {
+                string authResult = _commonRepository.IsAuthenticated(Request);
+                _userSubcriptionEmail = GetSubscriptionEmail();
+                if (!(authResult.Equals("200")))
+                {
+                    throw new Exception(authResult);
+                }
+                _userService.DeleteSubscription(id);
+                result = Request.CreateResponse(HttpStatusCode.NoContent);
+            }
+            catch (Exception ex)
+            {
+                _logger.Log(ex, _userSubcriptionEmail);
+                throw;
+            }
+
+            return result;
+        }
+
         #endregion
+
+        #region AddSubscriptionByCategoryandSubCategory
+
+        /// <summary>
+        /// Insert new Subscription item into the database
+        /// </summary>
+        /// <returns>newly added Subscription object</returns>
+        public HttpResponseMessage AddSubscriptionByCategoryandSubCategory(ClassifiedsUser subscriptionObj)
+        {
+            HttpResponseMessage result;
+            try
+            {
+                string authResult = _commonRepository.IsAuthenticated(Request);
+                _userSubcriptionEmail = GetSubscriptionEmail();
+                if (!(authResult.Equals("200")))
+                {
+                    throw new Exception(authResult);
+                }
+                var classified = _userService.AddSubscriptionByCategoryandSubCategory(subscriptionObj);
+                result = Request.CreateResponse<ClassifiedsUser>(HttpStatusCode.Created, classified);
+            }
+            catch (Exception ex)
+            {
+                _logger.Log(ex, _userSubcriptionEmail);
+                throw;
+            }
+
+            return result;
+        }
+
+        #endregion AddSubscriptionByCategoryandSubCategory
+
+        #region DeleteubscriptionByCategoryandSubCategory
+        /// <summary>
+        /// Delete Subscription item for given Id
+        /// </summary>
+        /// <param name="id">Id</param>
+        /// <returns>deleted id</returns>
+        public HttpResponseMessage DeleteubscriptionByCategoryandSubCategory(string id)
+        {
+            HttpResponseMessage result;
+            try
+            {
+                string authResult = _commonRepository.IsAuthenticated(Request);
+                _userSubcriptionEmail = GetSubscriptionEmail();
+                if (!(authResult.Equals("200")))
+                {
+                    throw new Exception(authResult);
+                }
+                _userService.DeleteubscriptionByCategoryandSubCategory(id);
+                result = Request.CreateResponse(HttpStatusCode.NoContent);
+            }
+            catch (Exception ex)
+            {
+                _logger.Log(ex, _userSubcriptionEmail);
+                throw;
+            }
+
+            return result;
+        }
+
+        #endregion DeleteubscriptionByCategoryandSubCategory
+
+        #endregion
+
         #region private methods
         /// <summary>
         /// Returns user email string
@@ -94,6 +227,16 @@ namespace Classifieds.UserServiceAPI.Controllers
                     result = user.UserEmail;
             }
             return result;
+        }
+
+
+        private string GetSubscriptionEmail()
+        {
+            IEnumerable<string> headerValues;
+            HttpRequestMessage message = Request ?? new HttpRequestMessage();
+            message.Headers.TryGetValues("UserEmail", out headerValues);
+            string headerVal = headerValues == null ? string.Empty : headerValues.FirstOrDefault();
+            return headerVal;
         }
 
         #endregion

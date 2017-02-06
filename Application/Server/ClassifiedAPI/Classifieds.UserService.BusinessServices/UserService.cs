@@ -18,6 +18,8 @@ namespace Classifieds.UserService.BusinessServices
         #endregion
 
         #region Public Methods
+
+        #region RegisterUser
         /// <summary>
         /// Registers a classifieds user into the database
         /// </summary>
@@ -34,6 +36,91 @@ namespace Classifieds.UserService.BusinessServices
                 throw ex;
             }
         }
+
+        #endregion RegisterUser
+
+        #region AddSubscription
+
+        /// <summary>
+        /// Insert new Subscription item into the database
+        /// </summary>
+        /// <param name="subscriptionObj">Subscription Object</param>
+        /// <returns>Newly added Subscription object</returns>
+        public Subscription AddSubscription(Subscription subscriptionObj)
+        {
+            try
+            {
+                return _userRepository.AddSubscription(subscriptionObj);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        #endregion
+
+        #region DeleteSubscription
+        /// <summary>
+        /// Delete Subscription item for given Id
+        /// </summary>
+        /// <param name="id">Id</param>
+        /// <returns>deleted Id</returns>
+        public void DeleteSubscription(string id)
+        {
+            try
+            {
+                _userRepository.DeleteSubscription(id);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        #endregion DeleteSubscription
+
+        #region AddSubscriptionByCategoryandSubCategory
+
+        /// <summary>
+        /// Insert new Subscription item into the database
+        /// </summary>
+        /// <param name="subscriptionObj">Subscription Object</param>
+        /// <returns>Newly added Subscription object</returns>
+        public ClassifiedsUser AddSubscriptionByCategoryandSubCategory(ClassifiedsUser subscriptionObj)
+        {
+            try
+            {
+                return _userRepository.AddSubscriptionByCategoryandSubCategory(subscriptionObj);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        #endregion AddSubscriptionByCategoryandSubCategory
+
+        #region DeleteubscriptionByCategoryandSubCategory
+        /// <summary>
+        /// Delete Subscription item for given Id
+        /// </summary>
+        /// <param name="id">Id</param>
+        /// <returns>deleted Id</returns>
+        public void DeleteubscriptionByCategoryandSubCategory(string id)
+        {
+            try
+            {
+                _userRepository.DeleteubscriptionByCategoryandSubCategory(id);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        #endregion DeleteubscriptionByCategoryandSubCategory
+
         #endregion
     }
 }
