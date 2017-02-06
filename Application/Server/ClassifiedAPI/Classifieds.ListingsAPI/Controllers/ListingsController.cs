@@ -77,12 +77,12 @@ namespace Classifieds.ListingsAPI.Controllers
         {
             try
             {
-                //string authResult = _commonRepository.IsAuthenticated(Request);
-                //_userEmail = GetUserEmail();
-                //if (!(authResult.Equals("200")))
-                //{
-                //    throw new Exception(authResult);
-                //}
+                string authResult = _commonRepository.IsAuthenticated(Request);
+                _userEmail = GetUserEmail();
+                if (!(authResult.Equals("200")))
+                {
+                    throw new Exception(authResult);
+                }
 
                 return _listingService.GetListingsByEmail(email).ToList();
             }
