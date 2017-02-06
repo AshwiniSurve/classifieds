@@ -20,6 +20,7 @@ namespace Classifieds.Listings.BusinessServices
         #endregion
 
         #region Public Methods
+
         /// <summary>
         /// Returns the collection of listing for given id
         /// </summary>
@@ -30,6 +31,23 @@ namespace Classifieds.Listings.BusinessServices
             try
             {
                 return _listingRepository.GetListingById(id).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// Returns the collection of listing for given email
+        /// </summary>
+        /// <param name="email">Email</param>
+        /// <returns></returns>
+        public List<Listing> GetListingByEmail(string email)
+        {
+            try
+            {
+                return _listingRepository.GetListingByEmail(email).ToList();
             }
             catch (Exception ex)
             {

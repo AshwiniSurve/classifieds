@@ -38,30 +38,30 @@ namespace Classifieds.ListingsAPI.Tests
             var listObject = new Listing
             {
                 _id = "9",
-                ListingType = "test",
-                ListingCategory = "test",
-                SubCategory = "test",
-                Title = "test",
-                Address = "AAA",
-                ContactNo = "1111",
-                ContactName = "AAA AAA",
+                ListingType = "sale",
+                ListingCategory = "Housing",
+                SubCategory = "3 bhk",
+                Title = "flat on rent",
+                Address = "Pune",
+                ContactNo = "12345",
+                ContactName = "varun wadsamudrakar",
                 Configuration = "NA",
-                Details = "for rupees 20,000,000,000",
-                Brand = "test",
-                Price = 123,
-                YearOfPurchase = 123,
-                ExpiryDate = "test",
-                Status = "test",
-                Submittedby = "test",
-                SubmittedDate = "test",
-                IdealFor = "test",
-                Furnished = "test",
+                Details = "for rupees 22,000",
+                Brand = "New",
+                Price = 4500000,
+                YearOfPurchase = 2000,
+                ExpiryDate = "03-02-2018",
+                Status = "ok",
+                Submittedby = "v.wadsamudrakar@globant.com",
+                SubmittedDate = "03-02-2017",
+                IdealFor = "Family",
+                Furnished = "Yes",
                 FuelType = "test",
-                KmDriven = 123,
-                YearofMake = 123,
+                KmDriven = 0000,
+                YearofMake = 2016,
                 Dimensions = "test",
                 TypeofUse = "test",
-                Photos = new [] { "/Photos/Merc2016.jpg", "/Photos/Merc2016.jpg" }
+                Photos = new[] { "/Photos/flat2016.jpg", "/Photos/flat2016.jpg" }
             };
             return listObject;
         }
@@ -112,6 +112,52 @@ namespace Classifieds.ListingsAPI.Tests
             ArgumentNullException ex = new ArgumentNullException("ArgumentNullException", new ArgumentNullException());
             _moqAppManager.Setup(x => x.GetListingById(null)).Throws(ex);
             _service.GetListingById(null);
+        }
+
+        /// <summary>
+        /// test positive scenario for Get Listing By Email  
+        /// </summary>
+        [TestMethod]
+        public void GetListingByEmailTest()
+        {
+            // Arrange
+            SetUpClassifiedsListing();
+            _moqAppManager.Setup(x => x.GetListingByEmail(It.IsAny<string>())).Returns(_classifiedList);
+
+            //Act
+            var result = _service.GetListingByEmail(_classifiedList[0].Submittedby);
+
+            //Assert
+            Assert.AreEqual(result.Count, 1);
+        }
+
+        /// <summary>
+        /// test for empty result  i.e. no match found
+        /// </summary>
+        [TestMethod]
+        public void GetListingByEmail_EmptyResult_Test()
+        {
+            //Arrange
+            var lstObject = GetListObject();
+            _moqAppManager.Setup(x => x.GetListingByEmail(It.IsAny<string>())).Returns(new List<Listing>());
+
+            //Act
+            var result = _service.GetListingByEmail(lstObject.Submittedby);
+
+            //Assert
+            Assert.AreEqual(result.Count, 0);
+        }
+
+        /// <summary>
+        /// test for null input giving exception
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void GetListingByEmail_ThrowsException()
+        {
+            ArgumentNullException ex = new ArgumentNullException("ArgumentNullException", new ArgumentNullException());
+            _moqAppManager.Setup(x => x.GetListingByEmail(null)).Throws(ex);
+            _service.GetListingByEmail(null);
         }
 
         /// <summary>

@@ -51,6 +51,30 @@ namespace Classifieds.Listings.Repository
         }
 
         /// <summary>
+        /// Returns a listing based on listing Email
+        /// </summary>
+        /// <param name="email">email</param>
+        /// <returns>Listing Email</returns>
+        public List<TEntity> GetListingByEmail(string email)
+        {
+            try
+            {
+                var query = Query<TEntity>.EQ(p => p.Submittedby, email);
+                var partialRresult = Classifieds.Find(query)
+                                        .ToList();
+
+                List<TEntity> result = partialRresult.Count > 0 ? partialRresult.ToList() : null;
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        /// <summary>
         /// Returns a collection of listings based on sub category
         /// </summary>
         /// <param name="subCategory">listing Sub Category</param>

@@ -43,7 +43,5 @@ namespace Classifieds.MastersData.Repository
         }
 
         #endregion
-
-
     }
 }

@@ -50,30 +50,30 @@ namespace Classifieds.ListingsAPI.Tests
             Listing listObject = new Listing
             {
                 _id = "9",
-                ListingType = "test",
+                ListingType = "sale",
                 ListingCategory = "Housing",
-                SubCategory = "test",
-                Title = "test",
-                Address = "AAA",
-                ContactNo = "1111",
-                ContactName = "AAA AAA",
+                SubCategory = "3 bhk",
+                Title = "flat on rent",
+                Address = "Pune",
+                ContactNo = "12345",
+                ContactName = "varun wadsamudrakar",
                 Configuration = "NA",
-                Details = "for rupees 20,000,000,000",
-                Brand = "test",
-                Price = 123,
-                YearOfPurchase = 123,
-                ExpiryDate = "test",
-                Status = "test",
-                Submittedby = "test",
-                SubmittedDate = "test",
-                IdealFor = "test",
-                Furnished = "test",
+                Details = "for rupees 22,000",
+                Brand = "New",
+                Price = 4500000,
+                YearOfPurchase = 2000,
+                ExpiryDate = "03-02-2018",
+                Status = "ok",
+                Submittedby = "v.wadsamudrakar@globant.com",
+                SubmittedDate = "03-02-2017",
+                IdealFor = "Family",
+                Furnished = "Yes",
                 FuelType = "test",
-                KmDriven = 123,
-                YearofMake = 123,
+                KmDriven = 0000,
+                YearofMake = 2016,
                 Dimensions = "test",
                 TypeofUse = "test",
-                Photos = new [] { "/Photos/Merc2016.jpg", "/Photos/Merc2016.jpg"}
+                Photos = new[] { "/Photos/flat2016.jpg", "/Photos/flat2016.jpg" }
             };
             return listObject;
 
@@ -100,6 +100,26 @@ namespace Classifieds.ListingsAPI.Tests
             //Assert
             Assert.AreEqual(objList.Count, 1);
             Assert.AreEqual(objList[0].Title, "test");
+        }
+
+        /// <summary>
+        /// test positive scenario for Get Listing By Email  
+        /// </summary>
+        [TestMethod]
+        public void GetListingByEmailTest()
+        {
+            SetUpClassifiedsListing();
+            _mockService.Setup(x => x.GetListingByEmail(It.IsAny<string>()))
+                .Returns(_classifiedList);
+            _mockAuthRepo.Setup(x => x.IsAuthenticated(It.IsAny<HttpRequestMessage>())).Returns("200");
+            _logger.Setup(x => x.Log(It.IsAny<Exception>(), It.IsAny<string>()));
+
+            //Act           
+            var objList = _controller.GetListingByEmail("v.wadsamudrakar@globant.com");
+
+            //Assert
+            Assert.AreEqual(objList.Count, 1);
+            Assert.AreEqual(objList[0].Submittedby, "v.wadsamudrakar@globant.com");
         }
 
         /// <summary>
@@ -131,6 +151,17 @@ namespace Classifieds.ListingsAPI.Tests
         {
             _mockAuthRepo.Setup(x => x.IsAuthenticated(It.IsAny<HttpRequestMessage>())).Returns("200");
             _controller.GetListingById(null);
+        }
+
+        /// <summary>
+        /// test for null listing Email giving exception
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void Controller_GetListingByEmail_ThrowsException()
+        {
+            _mockAuthRepo.Setup(x => x.IsAuthenticated(It.IsAny<HttpRequestMessage>())).Returns("200");
+            _controller.GetListingByEmail(null);
         }
 
         /// <summary>

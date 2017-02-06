@@ -35,31 +35,31 @@ namespace Classifieds.ListingsAPI.Tests
         private Listing GetListObject()
         {
             var listObject = new Listing
-            {               
+            {
                 ListingType = "sale",
                 ListingCategory = "Housing",
-                SubCategory = "2 bhk",
+                SubCategory = "3 bhk",
                 Title = "flat on rent",
-                Address = "pune",
+                Address = "Pune",
                 ContactNo = "12345",
-                ContactName = "AAA AAA",
+                ContactName = "varun wadsamudrakar",
                 Configuration = "NA",
-                Details = "for rupees 49,00,000",
-                Brand = "Kumar",
-                Price = 90,
+                Details = "for rupees 22,000",
+                Brand = "New",
+                Price = 4500000,
                 YearOfPurchase = 2000,
-                ExpiryDate = "test",
-                Status = "test",
-                Submittedby = "test",
-                SubmittedDate = "test",
-                IdealFor = "test",
-                Furnished = "test",
+                ExpiryDate = "03-02-2018",
+                Status = "ok",
+                Submittedby = "v.wadsamudrakar@globant.com",
+                SubmittedDate = "03-02-2017",
+                IdealFor = "Family",
+                Furnished = "Yes",
                 FuelType = "test",
-                KmDriven = 123,
-                YearofMake = 123,
+                KmDriven = 0000,
+                YearofMake = 2016,
                 Dimensions = "test",
                 TypeofUse = "test",
-                Photos = new [] { "/Photos/Merc2016.jpg", "/Photos/Merc2016.jpg" }
+                Photos = new[] { "/Photos/flat2016.jpg", "/Photos/flat2016.jpg" }
             };
             return listObject;
         }
@@ -111,6 +111,47 @@ namespace Classifieds.ListingsAPI.Tests
         }
 
         /// <summary>
+        /// test positive scenario for Get Listing By Id 
+        /// </summary>
+        [TestMethod]
+        public void Repo_GetListingByEmailTest()
+        {
+            // Arrange
+            SetUpClassifiedsListing();
+
+            //Act
+            var result = _listingRepo.GetListingByEmail(_classifiedList[0].Submittedby);
+
+            //Assert            
+            Assert.IsNotNull(result[0]);
+        }
+
+        /// <summary>
+        /// test for incorrect email return null;
+        /// </summary>
+        [TestMethod]
+        public void Repo_GetListingByEmailTest_NullId()
+        {
+            //Act
+            var result = _listingRepo.GetListingByEmail(null);
+
+            //Assert
+            Assert.IsNull(result);
+        }
+
+        /// <summary>
+        /// test for incorrect email throws exception
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(NullReferenceException))]
+        public void Repo_GetListingByEmailTest_InvalidId_ThrowException()
+        {
+            var result = _listingRepo.GetListingByEmail("qazxsw");
+            Assert.AreEqual(0, result.Count);
+        }
+
+
+        /// <summary>
         /// test positive scenario for get listing by category 
         /// </summary>
         [TestMethod]
@@ -139,9 +180,9 @@ namespace Classifieds.ListingsAPI.Tests
         /// <summary>
         /// test for null category returns empty result
         /// </summary>
-        [TestMethod]        
+        [TestMethod]
         public void Repo_GetListingByCategoryTest_NullCategory()
-        {   
+        {
             var nullResult = _listingRepo.GetListingsByCategory(null);
             Assert.AreEqual(0, nullResult.Count);
         }
@@ -154,7 +195,7 @@ namespace Classifieds.ListingsAPI.Tests
         {
             //Arrange
             var lstObject = GetListObject();
-            
+
             //Act
             var result = _listingRepo.Add(lstObject);
 
@@ -188,7 +229,7 @@ namespace Classifieds.ListingsAPI.Tests
             _listingRepo.Delete(result._id);
 
             var newresult = _listingRepo.GetListingById(result._id);
-            
+
             //Assert
             Assert.IsNull(newresult);
 
@@ -203,7 +244,7 @@ namespace Classifieds.ListingsAPI.Tests
         {
             _listingRepo.Delete("qwer");
         }
-       
+
         /// <summary>
         /// test positive scenario for updating listing object
         /// </summary>
@@ -252,7 +293,7 @@ namespace Classifieds.ListingsAPI.Tests
             Assert.IsNotNull(result, null);
 
             //Act
-             var newResult = _listingRepo.GetListingsBySubCategory(result.SubCategory);
+            var newResult = _listingRepo.GetListingsBySubCategory(result.SubCategory);
 
             //Assert
             Assert.IsNotNull(newResult[0]);
@@ -301,9 +342,8 @@ namespace Classifieds.ListingsAPI.Tests
         public void Repo_GetTopListingTest_ThrowException()
         {
             //Act
-            _listingRepo.GetTopListings(2);            
+            _listingRepo.GetTopListings(2);
         }
         #endregion
-
     }
 }

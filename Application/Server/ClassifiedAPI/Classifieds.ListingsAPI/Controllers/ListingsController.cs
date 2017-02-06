@@ -42,6 +42,7 @@ namespace Classifieds.ListingsAPI.Controllers
         #endregion
 
         #region Public Methods
+        
         /// <summary>
         /// Returns the listing for given id
         /// </summary>
@@ -57,7 +58,7 @@ namespace Classifieds.ListingsAPI.Controllers
                 {
                     throw new Exception(authResult);
                 }
-                
+
                 return _listingService.GetListingById(id).ToList();
             }
             catch (Exception ex)
@@ -66,6 +67,33 @@ namespace Classifieds.ListingsAPI.Controllers
                 throw ex;
             }
         }
+
+        /// <summary>
+        /// Returns the listing for given email
+        /// </summary>
+        /// <param name="email">listing email</param>
+        /// <returns></returns>
+        public List<Listing> GetListingByEmail(string email)
+        {
+            try
+            {
+                string authResult = _commonRepository.IsAuthenticated(Request);
+                _userEmail = GetUserEmail();
+                if (!(authResult.Equals("200")))
+                {
+                    throw new Exception(authResult);
+                }
+
+                return _listingService.GetListingByEmail(email).ToList();
+            }
+            catch (Exception ex)
+            {
+                _logger.Log(ex, _userEmail);
+                throw ex;
+            }
+        }
+
+
 
         /// <summary>
         /// Returns the listings for given sub category
