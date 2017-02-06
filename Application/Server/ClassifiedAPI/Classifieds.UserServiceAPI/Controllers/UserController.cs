@@ -179,13 +179,13 @@ namespace Classifieds.UserServiceAPI.Controllers
 
         #endregion AddSubscriptionByCategoryandSubCategory
 
-        #region DeleteubscriptionByCategoryandSubCategory
+        #region DeleteSubscriptionByCategoryandSubCategory
         /// <summary>
         /// Delete Subscription item for given Id
         /// </summary>
         /// <param name="id">Id</param>
         /// <returns>deleted id</returns>
-        public HttpResponseMessage DeleteubscriptionByCategoryandSubCategory(string id)
+        public HttpResponseMessage DeleteSubscriptionByCategoryandSubCategory(string id)
         {
             HttpResponseMessage result;
             try
@@ -196,7 +196,7 @@ namespace Classifieds.UserServiceAPI.Controllers
                 {
                     throw new Exception(authResult);
                 }
-                _userService.DeleteubscriptionByCategoryandSubCategory(id);
+                _userService.DeleteSubscriptionByCategoryandSubCategory(id);
                 result = Request.CreateResponse(HttpStatusCode.NoContent);
             }
             catch (Exception ex)
@@ -208,7 +208,7 @@ namespace Classifieds.UserServiceAPI.Controllers
             return result;
         }
 
-        #endregion DeleteubscriptionByCategoryandSubCategory
+        #endregion DeleteSubscriptionByCategoryandSubCategory
 
         #endregion
 

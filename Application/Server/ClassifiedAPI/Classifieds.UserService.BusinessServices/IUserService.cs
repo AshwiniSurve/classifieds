@@ -8,6 +8,6 @@ namespace Classifieds.UserService.BusinessServices
         Subscription AddSubscription(Subscription subObject);
         void DeleteSubscription(string id);
         ClassifiedsUser AddSubscriptionByCategoryandSubCategory(ClassifiedsUser subObject);
-        void DeleteubscriptionByCategoryandSubCategory(string id);
+        void DeleteSubscriptionByCategoryandSubCategory(string id);
     }
 }

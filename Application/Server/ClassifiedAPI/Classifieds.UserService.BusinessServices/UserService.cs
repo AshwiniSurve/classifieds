@@ -101,17 +101,17 @@ namespace Classifieds.UserService.BusinessServices
 
         #endregion AddSubscriptionByCategoryandSubCategory
 
-        #region DeleteubscriptionByCategoryandSubCategory
+        #region DeleteSubscriptionByCategoryandSubCategory
         /// <summary>
         /// Delete Subscription item for given Id
         /// </summary>
         /// <param name="id">Id</param>
         /// <returns>deleted Id</returns>
-        public void DeleteubscriptionByCategoryandSubCategory(string id)
+        public void DeleteSubscriptionByCategoryandSubCategory(string id)
         {
             try
             {
-                _userRepository.DeleteubscriptionByCategoryandSubCategory(id);
+                _userRepository.DeleteSubscriptionByCategoryandSubCategory(id);
             }
             catch (Exception ex)
             {
@@ -119,7 +119,7 @@ namespace Classifieds.UserService.BusinessServices
             }
         }
 
-        #endregion DeleteubscriptionByCategoryandSubCategory
+        #endregion DeleteSubscriptionByCategoryandSubCategory
 
         #endregion
     }

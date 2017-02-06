@@ -150,13 +150,13 @@ namespace Classifieds.UserService.Repository
 
         #endregion AddSubscriptionByCategoryandSubCategory
 
-        #region DeleteubscriptionByCategoryandSubCategory
+        #region DeleteSubscriptionByCategoryandSubCategory
         /// <summary>
         /// Delete Subscription object based on id from the database
         /// </summary>
         /// <param name="id">Id</param>
         /// <returns>return void</returns>
-        public void DeleteubscriptionByCategoryandSubCategory(string id)
+        public void DeleteSubscriptionByCategoryandSubCategory(string id)
         {
             try
             {
@@ -169,7 +169,7 @@ namespace Classifieds.UserService.Repository
             }
         }
 
-        #endregion DeleteubscriptionByCategoryandSubCategory
+        #endregion DeleteSubscriptionByCategoryandSubCategory
 
         #endregion Public Methods
     }
