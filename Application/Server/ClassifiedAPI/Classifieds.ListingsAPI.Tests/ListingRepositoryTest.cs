@@ -111,16 +111,16 @@ namespace Classifieds.ListingsAPI.Tests
         }
 
         /// <summary>
-        /// test positive scenario for Get Listing By Id 
+        /// test positive scenario for Get Listing By Email 
         /// </summary>
         [TestMethod]
-        public void Repo_GetListingByEmailTest()
+        public void Repo_GetListingsByEmailTest()
         {
             // Arrange
             SetUpClassifiedsListing();
 
             //Act
-            var result = _listingRepo.GetListingByEmail(_classifiedList[0].Submittedby);
+            var result = _listingRepo.GetListingsByEmail(_classifiedList[0].Submittedby);
 
             //Assert            
             Assert.IsNotNull(result[0]);
@@ -130,10 +130,10 @@ namespace Classifieds.ListingsAPI.Tests
         /// test for incorrect email return null;
         /// </summary>
         [TestMethod]
-        public void Repo_GetListingByEmailTest_NullId()
+        public void Repo_GetListingsByEmailTest_NullId()
         {
             //Act
-            var result = _listingRepo.GetListingByEmail(null);
+            var result = _listingRepo.GetListingsByEmail(null);
 
             //Assert
             Assert.IsNull(result);
@@ -146,7 +146,7 @@ namespace Classifieds.ListingsAPI.Tests
         [ExpectedException(typeof(NullReferenceException))]
         public void Repo_GetListingByEmailTest_InvalidId_ThrowException()
         {
-            var result = _listingRepo.GetListingByEmail("qazxsw");
+            var result = _listingRepo.GetListingsByEmail("qazxsw");
             Assert.AreEqual(0, result.Count);
         }
 

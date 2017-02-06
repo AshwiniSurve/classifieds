@@ -55,7 +55,7 @@ namespace Classifieds.Listings.Repository
         /// </summary>
         /// <param name="email">email</param>
         /// <returns>Listing Email</returns>
-        public List<TEntity> GetListingByEmail(string email)
+        public List<TEntity> GetListingsByEmail(string email)
         {
             try
             {

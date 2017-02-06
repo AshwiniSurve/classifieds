@@ -69,22 +69,22 @@ namespace Classifieds.ListingsAPI.Controllers
         }
 
         /// <summary>
-        /// Returns the listing for given email
+        /// Returns the listings for given email
         /// </summary>
-        /// <param name="email">listing email</param>
+        /// <param name="email">listings email</param>
         /// <returns></returns>
-        public List<Listing> GetListingByEmail(string email)
+        public List<Listing> GetListingsByEmail(string email)
         {
             try
             {
-                string authResult = _commonRepository.IsAuthenticated(Request);
-                _userEmail = GetUserEmail();
-                if (!(authResult.Equals("200")))
-                {
-                    throw new Exception(authResult);
-                }
+                //string authResult = _commonRepository.IsAuthenticated(Request);
+                //_userEmail = GetUserEmail();
+                //if (!(authResult.Equals("200")))
+                //{
+                //    throw new Exception(authResult);
+                //}
 
-                return _listingService.GetListingByEmail(email).ToList();
+                return _listingService.GetListingsByEmail(email).ToList();
             }
             catch (Exception ex)
             {

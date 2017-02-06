@@ -106,16 +106,16 @@ namespace Classifieds.ListingsAPI.Tests
         /// test positive scenario for Get Listing By Email  
         /// </summary>
         [TestMethod]
-        public void GetListingByEmailTest()
+        public void GetListingsByEmailTest()
         {
             SetUpClassifiedsListing();
-            _mockService.Setup(x => x.GetListingByEmail(It.IsAny<string>()))
+            _mockService.Setup(x => x.GetListingsByEmail(It.IsAny<string>()))
                 .Returns(_classifiedList);
             _mockAuthRepo.Setup(x => x.IsAuthenticated(It.IsAny<HttpRequestMessage>())).Returns("200");
             _logger.Setup(x => x.Log(It.IsAny<Exception>(), It.IsAny<string>()));
 
             //Act           
-            var objList = _controller.GetListingByEmail("v.wadsamudrakar@globant.com");
+            var objList = _controller.GetListingsByEmail("v.wadsamudrakar@globant.com");
 
             //Assert
             Assert.AreEqual(objList.Count, 1);
@@ -161,7 +161,7 @@ namespace Classifieds.ListingsAPI.Tests
         public void Controller_GetListingByEmail_ThrowsException()
         {
             _mockAuthRepo.Setup(x => x.IsAuthenticated(It.IsAny<HttpRequestMessage>())).Returns("200");
-            _controller.GetListingByEmail(null);
+            _controller.GetListingsByEmail(null);
         }
 
         /// <summary>

@@ -12,6 +12,6 @@ namespace Classifieds.Listings.Repository
         TEntity Update(string id, TEntity entity);
         void Delete(string id);
         List<TEntity> GetTopListings(int noOfRecords);
-        List<TEntity> GetListingByEmail(string email);
+        List<TEntity> GetListingsByEmail(string email);
     }
 }

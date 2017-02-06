@@ -43,11 +43,11 @@ namespace Classifieds.Listings.BusinessServices
         /// </summary>
         /// <param name="email">Email</param>
         /// <returns></returns>
-        public List<Listing> GetListingByEmail(string email)
+        public List<Listing> GetListingsByEmail(string email)
         {
             try
             {
-                return _listingRepository.GetListingByEmail(email).ToList();
+                return _listingRepository.GetListingsByEmail(email).ToList();
             }
             catch (Exception ex)
             {
