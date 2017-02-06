@@ -88,11 +88,7 @@ namespace Classifieds.UserService.Repository
         {
             try
             {
-                var result = Subscription.Save(subscriptionObj);
-                if (result.DocumentsAffected == 0 && result.HasLastErrorMessage)
-                {
-
-                }
+                Subscription.Save(subscriptionObj);
                 return subscriptionObj;
             }
             catch (Exception ex)
@@ -135,11 +131,7 @@ namespace Classifieds.UserService.Repository
         {
             try
             {
-                var result = Classifieds.Save(subscriptionObj);
-                if (result.DocumentsAffected == 0 && result.HasLastErrorMessage)
-                {
-
-                }
+                Classifieds.Save(subscriptionObj);
                 return subscriptionObj;
             }
             catch (Exception ex)
